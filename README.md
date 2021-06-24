@@ -40,7 +40,7 @@ Make sure you are working off this correct branch.
 
 ## 1. Setup (Required)
 
-Download the directory and place in your home folder (`~/turbo-boost-disable`).
+Download the directory and place in your home git folder (`~/git/turbo-boost-disable`).
 
 We need to run `load.sh` and `unload.sh` as root.
 Therefore, modify your `/etc/sudoers` file to not require a password for these scripts.
@@ -52,15 +52,15 @@ $ sudo visudo /etc/sudoers
 
 Append these lines to `/etc/sudoers`, replacing `myusername` with your login username (use `whoami` to find this out):
 ```
-myusername ALL=(root) NOPASSWD: /Users/myusername/turbo-boost-disable/load.sh
-myusername ALL=(root) NOPASSWD: /Users/myusername/turbo-boost-disable/unload.sh
+myusername ALL=(root) NOPASSWD: /Users/myusername/git/turbo-boost-disable/load.sh
+myusername ALL=(root) NOPASSWD: /Users/myusername/git/turbo-boost-disable/unload.sh
 ```
 
 Ensure that `load.sh`, `unload.sh`, `start.sh` are only readable and executable, not writable (for security purposes).
 They should also be owned by root (with `setuid`), so only `root` can alter these permissions.
 ```sh
-$ sudo chown root:wheel ~/turbo-boost-disable/*.sh
-$ sudo chmod 4755 ~/turbo-boost-disable/*.sh
+$ sudo chown root:wheel ~/git/turbo-boost-disable/*.sh
+$ sudo chmod 4755 ~/git/turbo-boost-disable/*.sh
 ```
 
 You can now choose automatic control or manual control to disable Turbo Boost.
@@ -75,16 +75,16 @@ This can be easily automated on macOS.
 For example, I recommend using `sleepwatcher`, a good tool for running scripts after lock/unlock on macOS.
 To install `sleepwatcher`, just use homebrew and start the service:
 ```sh
-$ brew install sleepwatcher
-$ brew services start sleepwatcher
+brew install sleepwatcher
+brew services start sleepwatcher
 ```
 
 Then create the wakeup script file at `~/.wakeup`:
 ```sh
-$ touch ~/.wakeup
-$ echo "#!/bin/sh" >> ~/.wakeup
-$ echo "~/turbo-boost-disable/start.sh" >> ~/.wakeup
-$ chmod u+x ~/.wakeup
+touch ~/.wakeup
+echo "#!/bin/sh" >> ~/.wakeup
+echo "~/git/turbo-boost-disable/start.sh" >> ~/.wakeup
+chmod u+x ~/.wakeup
 ```
 
 This will be called each time the computer is unlocked, and works well (for me at least).
